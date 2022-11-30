@@ -27,7 +27,7 @@ class _AddPageState extends State<AddPage> {
           }
           if (state.errorMessage.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Cos poszlo nie tak'),
                 backgroundColor: Colors.red,
               ),
