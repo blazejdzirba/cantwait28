@@ -12,24 +12,13 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._itemsRepository) : super(const HomeState());
 
   final ItemsRepository _itemsRepository;
+
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('items')
-        .orderBy('release_date')
-        .snapshots()
-        .listen(
+    _streamSubscription = _itemsRepository.getItemsStream().listen(
       (items) {
-        final itemModels = items.docs.map((doc) {
-          return ItemModel(
-            id: doc.id,
-            title: doc['title'],
-            imageURL: doc['image_url'],
-            relaseDate: (doc['release_date'] as Timestamp).toDate(),
-          );
-        }).toList();
-        emit(HomeState(items: itemModels));
+        emit(HomeState(items: items));
       },
     )..onError(
         (error) {
