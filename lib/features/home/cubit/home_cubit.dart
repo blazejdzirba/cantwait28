@@ -4,11 +4,14 @@ import 'package:bloc/bloc.dart';
 import 'package:cantwait28/models/item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../repositories/items_repository.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState());
+  HomeCubit(this._itemsRepository) : super(const HomeState());
 
+  final ItemsRepository _itemsRepository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
