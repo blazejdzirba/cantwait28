@@ -20,4 +20,11 @@ class ItemsRepository {
       ).toList();
     });
   }
+
+  Future<void> delete({required String id}) {
+    return FirebaseFirestore.instance
+          .collection('items')
+          .doc(id)
+          .delete();
+  }
 }

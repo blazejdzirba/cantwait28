@@ -29,10 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('items')
-          .doc(documentID)
-          .delete();
+      await _itemsRepository.delete(id: documentID);
     } catch (error) {
       emit(
         const HomeState(removingErrorOccured: true),
